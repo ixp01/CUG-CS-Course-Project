@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>900</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>罗马尼亚度假问题 - 路径搜索系统</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QGraphicsView" name="graphicsView"/>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="hLayoutTop">
+      <item>
+       <widget class="QLabel" name="labelStart">
+        <property name="text">
+         <string>起点：</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="comboBoxStart"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="labelGoal">
+        <property name="text">
+         <string>终点：</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="comboBoxGoal"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="labelAlgo">
+        <property name="text">
+         <string>算法：</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="comboBoxAlgo">
+        <item>
+         <property name="text">
+          <string>UCS</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Greedy</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>A*</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnSearch">
+        <property name="text">
+         <string>开始搜索</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBoxResult">
+      <property name="title">
+       <string>搜索结果：</string>
+      </property>
+      <layout class="QVBoxLayout" name="vLayoutResult">
+       <item>
+        <widget class="QLabel" name="labelPath"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="labelCost"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="labelVisited"/>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBoxConsole">
+      <property name="title">
+       <string>控制台输出区域</string>
+      </property>
+      <layout class="QVBoxLayout" name="vLayoutConsole">
+       <item>
+        <widget class="QTextEdit" name="textEditConsole">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>900</width>
+     <height>18</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
