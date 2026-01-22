@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dlg_AddDriver</class>
+ <widget class="QDialog" name="Dlg_AddDriver">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>409</width>
+    <height>397</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>添加司机</string>
+  </property>
+  <widget class="QWidget" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>330</y>
+     <width>261</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="QPushButton" name="Btn_save">
+      <property name="text">
+       <string>确定</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QPushButton" name="Btn_cancel">
+      <property name="text">
+       <string>取消</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>41</x>
+     <y>21</y>
+     <width>281</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>80</width>
+     <height>0</height>
+    </size>
+   </property>
+   <layout class="QFormLayout" name="formLayout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_name">
+      <property name="minimumSize">
+       <size>
+        <width>80</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>姓名</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="line_name"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_carColor">
+      <property name="minimumSize">
+       <size>
+        <width>80</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>车的颜色</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="line_carColor"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_licenseNum">
+      <property name="minimumSize">
+       <size>
+        <width>80</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>车牌号</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="line_licenseNum"/>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_seatNum">
+      <property name="minimumSize">
+       <size>
+        <width>80</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>车位数</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="line_seatNum"/>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_seatPos">
+      <property name="minimumSize">
+       <size>
+        <width>80</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>车位位置</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="line_seatPos"/>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_seatPrice">
+      <property name="minimumSize">
+       <size>
+        <width>80</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>车位价钱</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QLineEdit" name="line_seatPrice"/>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_departTimeHour">
+      <property name="minimumSize">
+       <size>
+        <width>80</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>出发时间_小时</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1">
+     <widget class="QLineEdit" name="line_dapartTimeHour"/>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="label_departTimeMin">
+      <property name="minimumSize">
+       <size>
+        <width>80</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>出发时间_分钟</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1">
+     <widget class="QLineEdit" name="line_dapartTimeMIn"/>
+    </item>
+    <item row="8" column="0">
+     <widget class="QLabel" name="label_departPlace">
+      <property name="minimumSize">
+       <size>
+        <width>80</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>出发地</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="1">
+     <widget class="QComboBox" name="comboBox_depart">
+      <item>
+       <property name="text">
+        <string>南望山</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>未来城</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="9" column="0">
+     <widget class="QLabel" name="label_arrivePlace">
+      <property name="minimumSize">
+       <size>
+        <width>80</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>目的地</string>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="1">
+     <widget class="QComboBox" name="comboBox_arrive">
+      <item>
+       <property name="text">
+        <string>南望山</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>未来城</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="10" column="0">
+     <widget class="QLabel" name="label_phone">
+      <property name="minimumSize">
+       <size>
+        <width>80</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>电话号码</string>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="1">
+     <widget class="QLineEdit" name="line_phone"/>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>line_name</tabstop>
+  <tabstop>line_carColor</tabstop>
+  <tabstop>line_licenseNum</tabstop>
+  <tabstop>line_seatNum</tabstop>
+  <tabstop>line_seatPos</tabstop>
+  <tabstop>line_seatPrice</tabstop>
+  <tabstop>line_dapartTimeHour</tabstop>
+  <tabstop>line_dapartTimeMIn</tabstop>
+  <tabstop>comboBox_depart</tabstop>
+  <tabstop>comboBox_arrive</tabstop>
+  <tabstop>line_phone</tabstop>
+  <tabstop>Btn_save</tabstop>
+  <tabstop>Btn_cancel</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
