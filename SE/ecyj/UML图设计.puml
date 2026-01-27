@@ -1,0 +1,654 @@
+@startuml 用例图
+!theme plain
+left to right direction
+skinparam packageStyle rectangle
+
+actor "检测员" as tester
+actor "管理员" as admin
+
+rectangle "二次压降检测仪信息管理系统" {
+    usecase "数据输入管理" as UC1
+    usecase "数据管理" as UC2
+    usecase "查询统计" as UC3
+    usecase "报告生成" as UC4
+    
+    usecase "手动添加数据" as UC1.1
+    usecase "批量导入数据" as UC1.2
+    
+    usecase "管理厂商信息" as UC2.1
+    usecase "管理设备信息" as UC2.2
+    usecase "管理检测记录" as UC2.3
+    usecase "管理检测结果项" as UC2.4
+    usecase "编辑详细测量数据" as UC2.5
+    
+    usecase "按时间段统计" as UC3.1
+    usecase "按厂商统计合格率" as UC3.2
+    usecase "按月统计工作量" as UC3.3
+    
+    usecase "生成PDF报告" as UC4.1
+    usecase "打印报告" as UC4.2
+    
+    usecase "清空数据库" as UC5
+}
+
+tester --> UC1
+tester --> UC2
+tester --> UC3
+tester --> UC4
+
+admin --> UC5
+
+UC1 .> UC1.1 : <<include>>
+UC1 .> UC1.2 : <<include>>
+
+UC2 .> UC2.1 : <<include>>
+UC2 .> UC2.2 : <<include>>
+UC2 .> UC2.3 : <<include>>
+UC2 .> UC2.4 : <<include>>
+UC2 .> UC2.5 : <<extend>>
+
+UC3 .> UC3.1 : <<include>>
+UC3 .> UC3.2 : <<include>>
+UC3 .> UC3.3 : <<include>>
+
+UC4 .> UC4.1 : <<include>>
+UC4 .> UC4.2 : <<extend>>
+
+@enduml
+
+@startuml 类图
+!theme plain
+allowmixing
+skinparam linetype ortho
+left to right direction
+
+' Qt基类
+class QMainWindow <<Qt>>
+class QDialog <<Qt>>
+class QObject <<Qt>>
+
+' 主窗口类
+class MainWindow {
+    - m_tableView: QTableView*
+    - m_currentModel: QSqlTableModel*
+    - m_currentTable: QString
+    __核心方法__
+    + MainWindow(parent: QWidget*)
+    + ~MainWindow()
+    __数据管理__
+    - onAddRecord(): void
+    - onDeleteRecord(): void
+    - onRefreshData(): void
+    __功能操作__
+    - onImportCSV(): void
+    - onExportPDF(): void
+    - onStatistics(): void
+}
+
+' 数据库助手类（单例）
+class DatabaseHelper {
+    - {static} m_instance: DatabaseHelper*
+    - m_database: QSqlDatabase
+    __单例模式__
+    + {static} instance(): DatabaseHelper*
+    __核心方法__
+    + initDatabase(): bool
+    + getDatabase(): QSqlDatabase
+    + clearAllData(): void
+}
+
+' 对话框类组
+package "对话框类" {
+    class AddDialog {
+        - m_type: DialogType
+        __核心方法__
+        + AddDialog(type: DialogType, parent: QWidget*)
+        + getData(): QMap<QString, QVariant>
+    }
+    
+    class DetailDataDialog {
+        - m_testRecordId: int
+        __核心方法__
+        + DetailDataDialog(testRecordId: int, parent: QWidget*)
+        + saveData(): bool
+    }
+    
+    class StatisticsDialog {
+        - m_resultTable: QTableWidget*
+        __核心方法__
+        + StatisticsDialog(parent: QWidget*)
+        - onStatByDate(): void
+        - onStatByManufacturer(): void
+    }
+}
+
+' 业务逻辑类组
+package "业务逻辑类" {
+    class ReportGenerator {
+        __核心方法__
+        + generateTestReport(testRecordId: int, outputPath: QString): bool
+        + printTestReport(testRecordId: int, printer: QPrinter*): bool
+    }
+    
+    class CSVImporter {
+        __核心方法__
+        + importManufacturers(filePath: QString): bool
+        + importEquipment(filePath: QString): bool
+        + importTestRecords(filePath: QString): bool
+        __信号__
+        + <<signal>> progress(value: int, message: QString)
+        + <<signal>> finished(success: bool, message: QString)
+    }
+}
+
+' 继承关系
+MainWindow --|> QMainWindow
+AddDialog --|> QDialog
+DetailDataDialog --|> QDialog
+StatisticsDialog --|> QDialog
+DatabaseHelper --|> QObject
+ReportGenerator --|> QObject
+CSVImporter --|> QObject
+
+' 依赖和关联关系
+MainWindow ..> DatabaseHelper : <<uses>>
+MainWindow ..> AddDialog : <<creates>>
+MainWindow ..> DetailDataDialog : <<creates>>
+MainWindow ..> StatisticsDialog : <<creates>>
+MainWindow ..> ReportGenerator : <<creates>>
+MainWindow ..> CSVImporter : <<creates>>
+
+AddDialog ..> DatabaseHelper : <<uses>>
+DetailDataDialog ..> DatabaseHelper : <<uses>>
+StatisticsDialog ..> DatabaseHelper : <<uses>>
+ReportGenerator ..> DatabaseHelper : <<uses>>
+CSVImporter ..> DatabaseHelper : <<uses>>
+
+note right of DatabaseHelper
+  <b>单例模式</b>
+  统一管理数据库连接
+end note
+
+note bottom of MainWindow
+  <b>主控制器</b>
+  协调各模块协同工作
+end note
+
+@enduml
+
+@startuml 数据库ER图-陈氏表示法
+!theme plain
+left to right direction
+
+' 定义实体
+entity "厂商" as manufacturers {
+    * <u>id</u>
+    --
+    name
+    contact_person
+    phone
+    address
+}
+
+entity "设备信息" as equipment {
+    * <u>id</u>
+    --
+    * manufacturer_id FK
+    product_code
+    product_name
+    production_date
+    product_model
+}
+
+entity "检测记录" as records {
+    * <u>id</u>
+    --
+    * equipment_id FK
+    test_date
+    tester_name
+    test_location
+    secondary_voltage
+    temperature
+    humidity
+    overall_conclusion
+}
+
+entity "检测结果项" as items {
+    * <u>id</u>
+    --
+    * test_record_id FK
+    item_name
+    test_result
+    remarks
+}
+
+entity "详细测量数据" as details {
+    * <u>id</u>
+    --
+    * test_record_id FK
+    item_name
+    measurement_point
+    f_percent
+    d_minute
+    du_percent
+    upt_u_ratio
+    uyb_u_ratio
+}
+
+' 关系定义（陈氏表示法）
+' 1对多关系
+manufacturers ||--o{ equipment : "生产"
+equipment ||--o{ records : "被检测"
+records ||--o{ items : "包含结果项"
+records ||--o{ details : "包含详细数据"
+
+' 添加图例说明
+note right
+  <b>陈氏表示法说明：</b>
+  
+  ||    : 一方（1）
+  o{    : 多方（N）
+  
+  主键（PK）: <u>下划线</u>
+  外键（FK）: FK标记
+end note
+
+@enduml
+
+@startuml 时序图-添加检测记录
+!theme plain
+actor "检测员" as user
+participant "MainWindow" as main
+participant "AddDialog" as dialog
+participant "DatabaseHelper" as db
+database "SQLite数据库" as sqlite
+
+user -> main: 点击"添加记录"按钮
+activate main
+
+main -> dialog: 创建AddDialog(AddTestRecord)
+activate dialog
+
+dialog -> db: 查询设备列表
+activate db
+db -> sqlite: SELECT * FROM equipment_info
+sqlite --> db: 返回设备列表
+db --> dialog: 设备列表数据
+deactivate db
+
+dialog --> user: 显示添加对话框
+user -> dialog: 填写检测信息并提交
+
+dialog -> dialog: getData()
+dialog -> db: 插入检测记录
+activate db
+
+db -> sqlite: INSERT INTO test_records
+sqlite --> db: 插入成功
+db --> dialog: 返回新记录ID
+deactivate db
+
+dialog --> main: 对话框关闭
+deactivate dialog
+
+main -> main: onRefreshData()
+main -> sqlite: 重新加载表格数据
+sqlite --> main: 返回最新数据
+main --> user: 显示更新后的数据
+deactivate main
+
+@enduml
+
+@startuml 时序图-生成PDF报告
+!theme plain
+actor "检测员" as user
+participant "MainWindow" as main
+participant "ReportGenerator" as report
+participant "DatabaseHelper" as db
+database "SQLite数据库" as sqlite
+participant "QPrinter" as printer
+participant "文件系统" as fs
+
+user -> main: 选择记录并点击"导出PDF"
+activate main
+
+main -> report: generateTestReport(testRecordId, outputPath)
+activate report
+
+report -> db: 获取数据库连接
+activate db
+db --> report: QSqlDatabase
+deactivate db
+
+report -> sqlite: 查询检测记录
+activate sqlite
+sqlite --> report: 检测记录数据
+deactivate sqlite
+
+report -> sqlite: 查询设备信息
+activate sqlite
+sqlite --> report: 设备信息数据
+deactivate sqlite
+
+report -> sqlite: 查询检测结果项
+activate sqlite
+sqlite --> report: 检测结果项数据
+deactivate sqlite
+
+report -> sqlite: 查询详细测量数据
+activate sqlite
+sqlite --> report: 详细测量数据
+deactivate sqlite
+
+report -> report: generateReportHTML()
+report -> printer: 创建QPrinter对象
+activate printer
+
+report -> printer: 设置输出文件路径
+report -> report: 绘制报告内容\n- drawReportHeader()\n- drawEquipmentInfo()\n- drawTestItems()\n- drawDetailData()\n- drawConclusion()
+
+report -> printer: 渲染为PDF
+printer -> fs: 写入PDF文件
+activate fs
+fs --> printer: 文件写入完成
+deactivate fs
+deactivate printer
+
+report --> main: 返回生成结果
+deactivate report
+
+main --> user: 显示成功消息
+deactivate main
+
+@enduml
+
+@startuml 时序图-CSV批量导入
+!theme plain
+actor "检测员" as user
+participant "MainWindow" as main
+participant "CSVImporter" as importer
+participant "QFileDialog" as dialog
+participant "DatabaseHelper" as db
+database "SQLite数据库" as sqlite
+participant "CSV文件" as csv
+
+user -> main: 点击"导入CSV"按钮
+activate main
+
+main -> dialog: 选择CSV文件
+activate dialog
+user -> dialog: 选择文件类型和文件
+dialog --> main: 返回文件路径
+deactivate dialog
+
+main -> importer: 创建CSVImporter对象
+activate importer
+
+alt 导入设备信息
+    main -> importer: importEquipment(filePath)
+    importer -> csv: 读取CSV文件
+    activate csv
+    csv --> importer: 文件内容
+    deactivate csv
+    
+    loop 每一行数据
+        importer -> importer: parseLine(line)
+        importer -> db: 检查厂商是否存在
+        activate db
+        db -> sqlite: SELECT id FROM manufacturers
+        sqlite --> db: 厂商ID
+        deactivate db
+        
+        importer -> db: 插入设备记录
+        activate db
+        db -> sqlite: INSERT INTO equipment_info
+        sqlite --> db: 插入成功
+        deactivate db
+        
+        importer --> main: <<signal>> progress(value, message)
+        main --> user: 更新进度条
+    end
+    
+    importer --> main: <<signal>> finished(success, message)
+else 导入其他类型数据
+    note right: 类似的导入流程
+end
+
+deactivate importer
+
+main -> main: onRefreshData()
+main --> user: 显示导入完成消息
+deactivate main
+
+@enduml
+
+@startuml 活动图-检测数据录入流程
+!theme plain
+start
+
+:检测员登录系统;
+
+:选择数据输入方式;
+
+if (输入方式?) then (手动输入)
+    :点击"添加记录";
+    :选择录入类型\n(厂商/设备/检测记录/结果项);
+    :填写表单信息;
+    
+    if (数据验证?) then (通过)
+        :保存到数据库;
+    else (失败)
+        :显示错误信息;
+        :返回修改;
+        stop
+    endif
+    
+else (批量导入)
+    :点击"导入CSV";
+    :选择CSV文件;
+    :解析CSV文件;
+    
+    if (文件格式?) then (正确)
+        partition 批量处理 {
+            repeat
+                :读取一行数据;
+                :验证数据格式;
+                if (数据有效?) then (是)
+                    :插入数据库;
+                else (否)
+                    :记录错误日志;
+                endif
+            repeat while (还有数据?) is (是)
+            ->否;
+        }
+        :显示导入统计;
+    else (错误)
+        :显示格式错误;
+        stop
+    endif
+endif
+
+if (需要添加详细数据?) then (是)
+    :选择检测记录;
+    :点击"查看详细数据";
+    :填写ao/bo/co测量点数据;
+    :保存详细数据;
+else (否)
+endif
+
+:数据录入完成;
+
+:生成检测报告;
+
+stop
+
+@enduml
+
+@startuml 状态图-检测记录状态
+!theme plain
+
+[*] --> 待录入 : 创建检测记录
+
+待录入 --> 数据录入中 : 开始填写基本信息
+
+数据录入中 --> 待录入 : 取消录入
+数据录入中 --> 基本信息完成 : 保存基本信息
+
+基本信息完成 --> 详细数据录入中 : 添加详细测量数据
+基本信息完成 --> 检测完成 : 跳过详细数据\n(仅基本信息)
+
+详细数据录入中 --> 基本信息完成 : 取消详细数据
+详细数据录入中 --> 详细数据录入中 : 继续添加其他测量点
+详细数据录入中 --> 检测完成 : 保存详细数据
+
+检测完成 --> 报告生成中 : 生成PDF报告
+检测完成 --> 已归档 : 直接归档
+
+报告生成中 --> 报告已生成 : 报告生成成功
+报告生成中 --> 检测完成 : 报告生成失败
+
+报告已生成 --> 已归档 : 归档
+
+检测完成 --> 数据修改中 : 修改记录
+数据修改中 --> 检测完成 : 保存修改
+
+已归档 --> [*] : 删除记录
+
+note right of 待录入
+  初始状态
+  记录已创建但未填写
+end note
+
+note right of 检测完成
+  所有必要数据已录入
+  可以生成报告
+end note
+
+note right of 已归档
+  最终状态
+  记录完整且已归档
+end note
+
+@enduml
+
+@startuml 组件图-系统架构
+!theme plain
+
+package "表示层 (Presentation Layer)" {
+    [MainWindow] as main
+    [AddDialog] as add
+    [DetailDataDialog] as detail
+    [StatisticsDialog] as stat
+}
+
+package "业务逻辑层 (Business Logic Layer)" {
+    [ReportGenerator] as report
+    [CSVImporter] as importer
+    [数据验证模块] as validator
+}
+
+package "数据访问层 (Data Access Layer)" {
+    [DatabaseHelper] as dbhelper
+}
+
+package "数据层 (Data Layer)" {
+    database "SQLite数据库" as db
+}
+
+package "外部库 (External Libraries)" {
+    [Qt Framework] as qt
+    [Qt SQL] as qtsql
+    [Qt PrintSupport] as qtprint
+}
+
+main --> add
+main --> detail
+main --> stat
+main --> report
+main --> importer
+
+add --> dbhelper
+detail --> dbhelper
+stat --> dbhelper
+report --> dbhelper
+importer --> dbhelper
+
+dbhelper --> db
+
+main .> qt : uses
+add .> qt : uses
+detail .> qt : uses
+stat .> qt : uses
+dbhelper .> qtsql : uses
+report .> qtprint : uses
+
+note right of main
+  主窗口，负责整体界面
+  和用户交互
+end note
+
+note right of dbhelper
+  单例模式
+  统一管理数据库连接
+  和操作
+end note
+
+note bottom of db
+  存储所有业务数据：
+  - 厂商信息
+  - 设备信息
+  - 检测记录
+  - 检测结果
+  - 详细测量数据
+end note
+
+@enduml
+
+@startuml 部署图-系统物理架构
+!theme plain
+
+node "客户端计算机" {
+    artifact "ecyj.exe" as app {
+        component "Qt应用程序" as qtapp
+    }
+    
+    database "equipment_test.db" as db {
+    }
+    
+    folder "导出文件" as files {
+        file "检测报告.pdf" as pdf
+    }
+    
+    folder "导入文件" as imports {
+        file "设备信息.csv" as csv1
+        file "检测记录.csv" as csv2
+    }
+}
+
+node "打印机" as printer {
+}
+
+qtapp --> db : SQLite连接
+qtapp --> pdf : 生成PDF
+qtapp <-- csv1 : 读取CSV
+qtapp <-- csv2 : 读取CSV
+qtapp ..> printer : 打印输出
+
+note right of qtapp
+  基于Qt 6.8.3框架
+  使用MinGW 64位编译
+  C++开发
+end note
+
+note bottom of db
+  SQLite 3
+  本地文件数据库
+  无需独立服务器
+end note
+
+note top of printer
+  通过Qt PrintSupport
+  实现打印功能
+end note
+
+@enduml

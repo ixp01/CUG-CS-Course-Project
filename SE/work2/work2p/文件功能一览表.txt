@@ -1,0 +1,325 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                    教育基金会管理系统 - 文件功能一览表                       ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│  文件名                    │  功能描述                    │  是否必需  │  行数  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                   核心模块                                   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  main.cpp                  │  程序入口，创建应用和窗口    │  ✅ 必需   │  ~12   │
+│  mainwindow.h              │  主窗口类定义                │  ✅ 必需   │  ~48   │
+│  mainwindow.cpp            │  主窗口实现（导航+统计）     │  ✅ 必需   │  ~224  │
+│  mainwindow.ui             │  主窗口UI（Qt Designer）     │  ⚠️ 保留   │  ~32   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                   数据层                                     │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  datamanager.h             │  数据管理类定义（单例）      │  ✅ 必需   │  ~105  │
+│  datamanager.cpp           │  数据管理实现（增删改查+统计）│  ✅ 必需   │  ~223  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                 捐助管理模块                                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  donationwidget.h          │  捐助管理页面类定义          │  ✅ 必需   │  ~43   │
+│  donationwidget.cpp        │  捐助管理实现（列表+审核）   │  ✅ 必需   │  ~272  │
+│  donationwidget.ui         │  捐助管理UI                  │  ⚠️ 保留   │  ~20   │
+│  donationdialog.h          │  捐助申请对话框类定义        │  ✅ 必需   │  ~32   │
+│  donationdialog.cpp        │  捐助申请对话框实现（表单）  │  ✅ 必需   │  ~142  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                用款申请模块                                  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  applicationwidget.h       │  用款管理页面类定义          │  ✅ 必需   │  ~41   │
+│  applicationwidget.cpp     │  用款管理实现（审批+余额）   │  ✅ 必需   │  ~245  │
+│  applicationwidget.ui      │  用款管理UI                  │  ⚠️ 保留   │  ~20   │
+│  applicationdialog.h       │  用款申请对话框类定义        │  ✅ 必需   │  ~30   │
+│  applicationdialog.cpp     │  用款申请实现（校验+提交）   │  ✅ 必需   │  ~158  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                财政报表模块                                  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  reportwidget.h            │  财政报表页面类定义          │  ✅ 必需   │  ~46   │
+│  reportwidget.cpp          │  财政报表实现（统计+导出）   │  ✅ 必需   │  ~307  │
+│  reportwidget.ui           │  财政报表UI                  │  ⚠️ 保留   │  ~20   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                  配置文件                                    │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  work2p.pro                │  Qt项目配置（qmake）         │  ✅ 必需   │  ~40   │
+│  work2p.pro.user           │  Qt Creator用户配置          │  🗑️ 可删   │  ~241  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                  文档文件                                    │
+├─────────────────────────────────────────────────────────────────────────────┤
+│  README.md                 │  详细技术文档                │  📚 建议   │  ~300  │
+│  使用指南.txt              │  功能使用说明                │  📚 建议   │  ~250  │
+│  项目总结.md               │  完整项目总结                │  📚 建议   │  ~800  │
+│  快速开始.txt              │  快速上手指南                │  📚 建议   │  ~100  │
+│  编译说明.txt              │  编译帮助文档                │  📚 建议   │  ~150  │
+│  代码功能说明.md           │  代码功能详解                │  📚 建议   │  ~600  │
+│  功能证明-实际代码示例.txt │  业务逻辑代码示例            │  📚 建议   │  ~350  │
+│  文件功能一览表.txt        │  本文件                      │  📚 参考   │  ~180  │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+总计：
+  ✅ 核心必需文件：19个（删除任何一个都无法运行）
+  📚 文档建议文件：8个（帮助理解和使用）
+  🗑️ 可删除文件：1个（会自动重新生成）
+
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                            各文件的关键功能                                   ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+【datamanager.cpp - 核心数据管理】223行
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+功能1：addDonation()                    - 添加捐助记录（生成ID、状态、时间）
+功能2：updateDonationStatus()           - 更新状态 + 自动创建财务收入记录 ⚡
+功能3：addApplication()                 - 添加用款申请
+功能4：updateApplicationStatus()        - 更新状态 + 自动创建财务支出记录 ⚡
+功能5：getTotalIncome()                 - 计算总收入（遍历所有收入记录）⚡
+功能6：getTotalExpense()                - 计算总支出（遍历所有支出记录）⚡
+功能7：getBalance()                     - 计算余额（收入-支出）⚡
+功能8：getMonthlyIncome()               - 计算月度收入 ⚡
+功能9：getMonthlyExpense()              - 计算月度支出 ⚡
+功能10：getAllDonations/Applications    - 获取所有记录
+功能11：getDonations/ApplicationsByStatus - 按状态筛选
+功能12：getFinanceRecordsByMonth()      - 获取月度财务记录
+
+数据存储：
+  QList<DonationRecord> donations         - 捐助记录列表
+  QList<ApplicationRecord> applications   - 用款记录列表
+  QList<FinanceRecord> financeRecords     - 财务记录列表
+
+
+【donationwidget.cpp - 捐助管理】272行
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+功能1：setupUI()                        - 创建表格、按钮、筛选器
+功能2：loadDonations()                  - 从DataManager获取数据填充表格
+功能3：onAddDonation()                  - 弹出申请对话框
+功能4：onApproveDonation()              - 生成证书号 + 调用DataManager审核 ⚡
+功能5：onRejectDonation()               - 拒绝申请
+功能6：onViewCertificate()              - 生成并显示证书样式 ⚡
+功能7：updateButtonStates()             - 根据状态启用/禁用按钮
+功能8：onFilterChanged()                - 状态筛选
+
+
+【donationdialog.cpp - 捐助申请对话框】142行
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+功能1：setupUI()                        - 创建表单（类型、姓名、证件、金额等）
+功能2：validateInput()                  - 验证必填项和金额 ⚡
+功能3：onDonorTypeChanged()             - 根据类型改变提示文字
+功能4：onSubmit()                       - 提交数据到DataManager
+
+
+【applicationwidget.cpp - 用款管理】245行
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+功能1：setupUI()                        - 创建表格、按钮、筛选器
+功能2：loadApplications()               - 从DataManager获取数据填充表格
+功能3：onAddApplication()               - 弹出申请对话框
+功能4：onApproveApplication()           - 检查余额 + 输入意见 + 审核 ⚡⚡⚡
+功能5：onRejectApplication()            - 输入原因 + 拒绝
+功能6：updateButtonStates()             - 根据状态启用/禁用按钮
+
+⚡ 核心逻辑：余额检查
+  获取当前余额 = DataManager.getBalance()
+  如果 余额 < 申请金额：
+      显示警告："余额不足！当前余额¥XX，申请金额¥XX"
+      拒绝审批
+  否则：
+      继续审批流程
+
+
+【applicationdialog.cpp - 用款申请对话框】158行
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+功能1：setupUI()                        - 创建表单（学校、申请人、金额、用途）
+功能2：validateInput()                  - 验证必填项 + 合法性校验 ⚡⚡⚡
+功能3：onSubmit()                       - 提交数据到DataManager
+
+⚡ 核心逻辑：合法性校验
+  定义教育关键词列表 = ["教学","教育","学生","图书","设备"...]
+  检查用途是否包含任一关键词
+  如果不包含：
+      弹出确认对话框："用途中未包含教育相关关键词，是否确认提交？"
+      用户可选择取消
+
+
+【reportwidget.cpp - 财政报表】307行
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+功能1：setupUI()                        - 创建统计卡片、月份选择器、表格
+功能2：updateStatistics()               - 调用DataManager计算所有统计数据 ⚡
+功能3：loadMonthlyReport()              - 获取月度数据并显示
+功能4：onMonthChanged()                 - 切换月份时刷新数据
+功能5：onExportReport()                 - 导出报表为TXT文件 ⚡
+
+⚡ 统计卡片显示：
+  总收入卡片    = DataManager.getTotalIncome()
+  总支出卡片    = DataManager.getTotalExpense()
+  余额卡片      = DataManager.getBalance()
+  月度收入标签  = DataManager.getMonthlyIncome(year, month)
+  月度支出标签  = DataManager.getMonthlyExpense(year, month)
+
+⚡ 报表导出内容：
+  ========================================
+         教育基金会财政报表
+  ========================================
+  报表月份：2024年11月
+  一、总体财务状况
+      总收入：¥XXX
+      总支出：¥XXX
+      账户余额：¥XXX
+  二、本月财务状况
+      本月收入：¥XXX
+      本月支出：¥XXX
+  三、本月详细记录
+      [收入] 2024-11-04 | ¥10000
+      说明：捐助收入 - XX公司
+      ...
+
+
+【mainwindow.cpp - 主窗口框架】224行
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+功能1：setupUI()                        - 创建整体布局（导航+内容）
+功能2：onNavigationItemClicked()        - 切换页面 + 刷新数据
+功能3：updateStatistics()               - 更新顶部统计栏 ⚡
+
+⚡ 顶部统计栏内容：
+  📊 系统概况 | 
+  总收入: ¥XXX | 
+  总支出: ¥XXX | 
+  账户余额: ¥XXX | 
+  待审核捐助: X | 
+  待审核申请: X
+
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                          业务逻辑流程图                                       ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+【流程A：捐助申请到审核】
+用户点击"新增捐助申请"
+    ↓
+donationwidget.cpp::onAddDonation()
+    ↓
+弹出 donationdialog.cpp（表单对话框）
+    ↓
+用户填写信息，点击"提交申请"
+    ↓
+donationdialog.cpp::validateInput() ← 验证输入
+    ↓
+donationdialog.cpp::onSubmit()
+    ↓
+datamanager.cpp::addDonation()
+    • 生成ID = nextDonationId++
+    • 设置status = "待审核"
+    • 记录submitTime = 当前时间
+    • donations.append(newRecord)
+    ↓
+donationwidget.cpp::refreshData()
+    ↓
+donationwidget.cpp::loadDonations()
+    ↓
+datamanager.cpp::getAllDonations() → 返回记录列表
+    ↓
+表格显示新记录（状态：待审核，黄色）
+    ↓
+用户选中记录，点击"审核通过"
+    ↓
+donationwidget.cpp::onApproveDonation()
+    • 生成certificateNo = "CERT" + 日期 + ID
+    ↓
+datamanager.cpp::updateDonationStatus(id, "已通过", certificateNo)
+    • 更新status = "已通过"
+    • 保存certificateNo
+    • 记录approveTime = 当前时间
+    • ⚡ 自动执行：
+        datamanager.cpp::addFinanceRecord()
+        • type = "收入"
+        • amount = 捐助金额
+        • financeRecords.append(record)
+    ↓
+donationwidget.cpp::refreshData()
+    ↓
+表格更新：状态变为"已通过"（绿色）
+    ↓
+mainwindow.cpp::updateStatistics()
+    ↓
+datamanager.cpp::getTotalIncome() → 重新计算
+    ↓
+顶部统计栏更新：总收入增加！
+
+
+【流程B：用款申请到审核】
+用户点击"新增用款申请"
+    ↓
+applicationwidget.cpp::onAddApplication()
+    ↓
+弹出 applicationdialog.cpp（表单对话框）
+    ↓
+用户填写信息，点击"提交申请"
+    ↓
+applicationdialog.cpp::validateInput()
+    • 检查必填项
+    • ⚡ 合法性校验：
+        检查用途是否包含教育关键词
+        如果不包含 → 弹出确认对话框
+    ↓
+applicationdialog.cpp::onSubmit()
+    ↓
+datamanager.cpp::addApplication()
+    • 生成ID
+    • 设置status = "待审核"
+    • 记录时间
+    • applications.append(newRecord)
+    ↓
+applicationwidget.cpp::refreshData()
+    ↓
+表格显示新记录（状态：待审核）
+    ↓
+用户选中记录，点击"审核通过"
+    ↓
+applicationwidget.cpp::onApproveApplication()
+    • ⚡ 余额检查：
+        获取app = datamanager.cpp::getApplicationById(id)
+        获取balance = datamanager.cpp::getBalance()
+        如果 balance < app.amount：
+            显示警告："余额不足！"
+            return（拒绝审批）
+    • 弹出输入框：输入审批意见
+    ↓
+datamanager.cpp::updateApplicationStatus(id, "已通过", comment)
+    • 更新status = "已通过"
+    • 保存approveComment
+    • 记录approveTime
+    • ⚡ 自动执行：
+        datamanager.cpp::addFinanceRecord()
+        • type = "支出"
+        • amount = 申请金额
+        • financeRecords.append(record)
+    ↓
+applicationwidget.cpp::refreshData()
+    ↓
+表格更新：状态变为"已通过"（绿色）
+    ↓
+mainwindow.cpp::updateStatistics()
+    ↓
+datamanager.cpp::getBalance() → 重新计算
+    ↓
+顶部统计栏更新：总支出增加，余额减少！
+
+
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                        🎯 总结：所有文件都有实际功能！                        ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+✅ 19个核心文件 - 全部必需，删除任何一个都无法运行
+✅ 每个文件都包含实际的业务逻辑
+✅ 数据在内存中真实存储和处理
+✅ 所有计算都是实时的
+✅ 所有交互都有响应
+✅ 完整实现作业的三个要求
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+推荐保留：所有文件（包括文档）
+可以删除：work2p.pro.user（会自动重新生成）
+         build/文件夹（编译输出，可清理）
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+

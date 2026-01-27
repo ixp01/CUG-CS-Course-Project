@@ -1,0 +1,324 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" version="29.2.9">
+  <diagram id="ClassDiagram" name="类图-核心类设计">
+    <mxGraphModel dx="1516" dy="913" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1" value="核心类图设计" vertex="1">
+          <mxGeometry height="30" width="300" x="550" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="qt_qmainwindow" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#F0F0F0;strokeColor=#757575;fontSize=12;" value="«Qt»&#xa;QMainWindow" vertex="1">
+          <mxGeometry height="70" width="160" x="80" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="qt_qdialog" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#F0F0F0;strokeColor=#757575;fontSize=12;" value="«Qt»&#xa;QDialog" vertex="1">
+          <mxGeometry height="70" width="160" x="560" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="qt_qobject" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#F0F0F0;strokeColor=#757575;fontSize=12;" value="«Qt»&#xa;QObject" vertex="1">
+          <mxGeometry height="70" width="160" x="860" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="mainwindow" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#BBDEFB;strokeColor=#1976D2;strokeWidth=2;fontSize=13;" value="MainWindow" vertex="1">
+          <mxGeometry height="280" width="200" x="60" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="mainwindow_attrs" parent="mainwindow" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" value="- m_tableView: QTableView*&#xa;- m_currentModel: QSqlTableModel*&#xa;- m_currentTable: QString" vertex="1">
+          <mxGeometry height="60" width="200" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="mainwindow_separator1" parent="mainwindow" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#1976D2;" value="" vertex="1">
+          <mxGeometry height="8" width="200" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="mainwindow_constructor" parent="mainwindow" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" value="+ MainWindow(parent: QWidget*)&#xa;+ ~MainWindow()" vertex="1">
+          <mxGeometry height="40" width="200" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="mainwindow_separator2" parent="mainwindow" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#1976D2;" value="" vertex="1">
+          <mxGeometry height="8" width="200" y="138" as="geometry" />
+        </mxCell>
+        <mxCell id="mainwindow_methods" parent="mainwindow" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" value="- onAddRecord(): void&#xa;- onDeleteRecord(): void&#xa;- onRefreshData(): void&#xa;- onImportCSV(): void&#xa;- onExportPDF(): void&#xa;- onStatistics(): void" vertex="1">
+          <mxGeometry height="134" width="200" y="146" as="geometry" />
+        </mxCell>
+        <mxCell id="adddialog" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#E1BEE7;strokeColor=#7B1FA2;strokeWidth=2;fontSize=13;" value="AddDialog" vertex="1">
+          <mxGeometry height="180" width="210" x="360" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="adddialog_attrs" parent="adddialog" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" value="- m_type: DialogType&#xa;- m_formLayout: QFormLayout*&#xa;- m_inputFields: QMap&lt;QString, QWidget*&gt;" vertex="1">
+          <mxGeometry height="60" width="210" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="adddialog_separator" parent="adddialog" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#7B1FA2;" value="" vertex="1">
+          <mxGeometry height="8" width="210" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="adddialog_methods" parent="adddialog" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" value="+ AddDialog(type: DialogType, parent)&#xa;+ getData(): QMap&lt;QString, QVariant&gt;&#xa;- setupUI(): void&#xa;- validateData(): bool" vertex="1">
+          <mxGeometry height="82" width="210" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="detaildialog" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#E1BEE7;strokeColor=#7B1FA2;strokeWidth=2;fontSize=13;" value="DetailDataDialog" vertex="1">
+          <mxGeometry height="160" width="240" x="620" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="detaildialog_attrs" parent="detaildialog" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" value="- m_testRecordId: int&#xa;- m_dataTable: QTableWidget*" vertex="1">
+          <mxGeometry height="40" width="240" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="detaildialog_separator" parent="detaildialog" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#7B1FA2;" value="" vertex="1">
+          <mxGeometry height="8" width="240" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="detaildialog_methods" parent="detaildialog" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" value="+ DetailDataDialog(testRecordId, parent)&#xa;+ saveData(): bool&#xa;- loadExistingData(): void" vertex="1">
+          <mxGeometry height="82" width="240" y="78" as="geometry" />
+        </mxCell>
+        <mxCell id="statsdialog" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#E1BEE7;strokeColor=#7B1FA2;strokeWidth=2;fontSize=13;" value="StatisticsDialog" vertex="1">
+          <mxGeometry height="180" width="240" x="920" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="statsdialog_attrs" parent="statsdialog" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" value="- m_resultTable: QTableWidget*&#xa;- m_chartView: QChartView*" vertex="1">
+          <mxGeometry height="40" width="240" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="statsdialog_separator" parent="statsdialog" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#7B1FA2;" value="" vertex="1">
+          <mxGeometry height="8" width="240" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="statsdialog_methods" parent="statsdialog" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" value="+ StatisticsDialog(parent: QWidget*)&#xa;- onStatByDate(): void&#xa;- onStatByManufacturer(): void&#xa;- onStatByMonth(): void&#xa;- displayResults(data): void" vertex="1">
+          <mxGeometry height="102" width="240" y="78" as="geometry" />
+        </mxCell>
+        <mxCell id="dbhelper" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FFCDD2;strokeColor=#C62828;strokeWidth=3;fontSize=13;" value="DatabaseHelper" vertex="1">
+          <mxGeometry height="220" width="240" x="400" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="dbhelper_attrs" parent="dbhelper" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" value="- m_database: QSqlDatabase&#xa;- m_instance: DatabaseHelper* {static}&#xa;- m_dbPath: QString" vertex="1">
+          <mxGeometry height="60" width="240" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dbhelper_separator" parent="dbhelper" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#C62828;" value="" vertex="1">
+          <mxGeometry height="8" width="240" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="dbhelper_methods" parent="dbhelper" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" value="+ instance(): DatabaseHelper* {static}&#xa;+ initDatabase(): bool&#xa;+ getDatabase(): QSqlDatabase&#xa;+ clearAllData(): void&#xa;- DatabaseHelper() {private}&#xa;- createTables(): bool&#xa;- checkConnection(): bool" vertex="1">
+          <mxGeometry height="122" width="240" y="98" as="geometry" />
+        </mxCell>
+        <mxCell id="reportgen" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#C8E6C9;strokeColor=#388E3C;strokeWidth=2;fontSize=13;" value="ReportGenerator" vertex="1">
+          <mxGeometry height="200" width="280" x="720" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="reportgen_attrs" parent="reportgen" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" value="- m_printer: QPrinter*&#xa;- m_document: QTextDocument*" vertex="1">
+          <mxGeometry height="40" width="280" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="reportgen_separator" parent="reportgen" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#388E3C;" value="" vertex="1">
+          <mxGeometry height="8" width="280" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="reportgen_methods" parent="reportgen" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" value="+ generateTestReport(recordId, path): bool&#xa;+ printTestReport(recordId, printer): bool&#xa;- generateReportHTML(recordId): QString&#xa;- drawReportHeader(painter): void&#xa;- drawEquipmentInfo(painter, data): void&#xa;- drawTestItems(painter, items): void" vertex="1">
+          <mxGeometry height="122" width="280" y="78" as="geometry" />
+        </mxCell>
+        <mxCell id="csvimporter" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;fillColor=#FFF9C4;strokeColor=#F57F17;strokeWidth=2;fontSize=13;" value="CSVImporter" vertex="1">
+          <mxGeometry height="220" width="260" x="80" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="csvimporter_attrs" parent="csvimporter" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" value="- m_filePath: QString&#xa;- m_importType: ImportType" vertex="1">
+          <mxGeometry height="40" width="260" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="csvimporter_separator" parent="csvimporter" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=#F57F17;" value="" vertex="1">
+          <mxGeometry height="8" width="260" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="csvimporter_methods" parent="csvimporter" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=11;" value="+ importManufacturers(filePath): bool&#xa;+ importEquipment(filePath): bool&#xa;+ importTestRecords(filePath): bool&#xa;- parseCSVLine(line): QStringList&#xa;- validateCSVFormat(headers): bool&#xa;&#xa;«signal» progress(value, message)&#xa;«signal» finished(success, message)" vertex="1">
+          <mxGeometry height="142" width="260" y="78" as="geometry" />
+        </mxCell>
+        <mxCell id="inherit1" edge="1" parent="1" source="mainwindow" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;strokeWidth=2;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="qt_qmainwindow" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="400" y="300" as="sourcePoint" />
+            <mxPoint x="560" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="inherit2" edge="1" parent="1" source="adddialog" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;strokeWidth=2;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;" target="qt_qdialog" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="400" y="300" as="sourcePoint" />
+            <mxPoint x="560" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="inherit3" edge="1" parent="1" source="detaildialog" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;strokeWidth=2;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="qt_qdialog" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="400" y="300" as="sourcePoint" />
+            <mxPoint x="560" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="inherit4" edge="1" parent="1" source="statsdialog" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;strokeWidth=2;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" target="qt_qdialog" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="400" y="300" as="sourcePoint" />
+            <mxPoint x="560" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="inherit5" edge="1" parent="1" source="dbhelper" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;strokeWidth=2;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="qt_qobject" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <Array as="points">
+              <mxPoint x="520" y="460" />
+              <mxPoint x="1180" y="460" />
+              <mxPoint x="1180" y="200" />
+              <mxPoint x="940" y="200" />
+            </Array>
+            <mxPoint x="400" y="300" as="sourcePoint" />
+            <mxPoint x="1110" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="inherit6" edge="1" parent="1" source="reportgen" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;strokeWidth=2;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" target="qt_qobject" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <Array as="points">
+              <mxPoint x="860" y="460" />
+              <mxPoint x="1180" y="460" />
+              <mxPoint x="1180" y="120" />
+              <mxPoint x="1160" y="120" />
+              <mxPoint x="1160" y="125" />
+            </Array>
+            <mxPoint x="400" y="300" as="sourcePoint" />
+            <mxPoint x="560" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="inherit7" edge="1" parent="1" source="csvimporter" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;strokeWidth=2;exitX=0.5;exitY=0;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="qt_qobject" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="460" />
+              <mxPoint x="1180" y="460" />
+              <mxPoint x="1180" y="50" />
+              <mxPoint x="940" y="50" />
+            </Array>
+            <mxPoint x="400" y="300" as="sourcePoint" />
+            <mxPoint x="1020" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep1" edge="1" parent="1" source="mainwindow" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;strokeWidth=2;strokeColor=#7B1FA2;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" target="adddialog" value="«creates»">
+          <mxGeometry relative="1" width="160" x="-0.2" y="-10" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="400" y="350" as="sourcePoint" />
+            <mxPoint x="560" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep2" edge="1" parent="1" source="mainwindow" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;strokeWidth=2;strokeColor=#7B1FA2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" target="detaildialog" value="«creates»">
+          <mxGeometry relative="1" width="160" x="-0.2" y="-10" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="400" y="350" as="sourcePoint" />
+            <mxPoint x="560" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep3" edge="1" parent="1" source="mainwindow" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;strokeWidth=2;strokeColor=#7B1FA2;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" target="statsdialog" value="«creates»">
+          <mxGeometry relative="1" width="160" x="-0.2" y="-10" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="400" y="350" as="sourcePoint" />
+            <mxPoint x="560" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep4" edge="1" parent="1" source="mainwindow" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;strokeWidth=2;strokeColor=#C62828;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" target="dbhelper" value="«uses»">
+          <mxGeometry relative="1" width="160" x="-0.2" y="-10" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="400" y="450" as="sourcePoint" />
+            <mxPoint x="560" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep5" edge="1" parent="1" source="adddialog" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;strokeWidth=2;strokeColor=#C62828;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="dbhelper" value="«uses»">
+          <mxGeometry relative="1" width="160" x="-0.2" y="-10" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="400" y="450" as="sourcePoint" />
+            <mxPoint x="560" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep6" edge="1" parent="1" source="detaildialog" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;strokeWidth=2;strokeColor=#C62828;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" target="dbhelper" value="«uses»">
+          <mxGeometry relative="1" width="160" x="-0.2" y="-10" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="400" y="450" as="sourcePoint" />
+            <mxPoint x="560" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep7" edge="1" parent="1" source="statsdialog" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;strokeWidth=2;strokeColor=#C62828;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" target="dbhelper" value="«uses»">
+          <mxGeometry relative="1" width="160" x="-0.2" y="-10" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="400" y="450" as="sourcePoint" />
+            <mxPoint x="560" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep8" edge="1" parent="1" source="mainwindow" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;strokeWidth=2;strokeColor=#388E3C;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;" target="reportgen" value="«uses»">
+          <mxGeometry relative="1" width="160" x="-0.2" y="-10" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="400" y="450" as="sourcePoint" />
+            <mxPoint x="560" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep9" edge="1" parent="1" source="reportgen" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;strokeWidth=2;strokeColor=#C62828;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="dbhelper" value="«uses»">
+          <mxGeometry relative="1" width="160" x="-0.2" y="-10" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="400" y="650" as="sourcePoint" />
+            <mxPoint x="560" y="650" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep10" edge="1" parent="1" source="mainwindow" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;strokeWidth=2;strokeColor=#F57F17;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="csvimporter" value="«uses»">
+          <mxGeometry relative="1" width="160" x="-0.2" y="-10" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="400" y="450" as="sourcePoint" />
+            <mxPoint x="560" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep11" edge="1" parent="1" source="csvimporter" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;strokeWidth=2;strokeColor=#C62828;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="dbhelper" value="«uses»">
+          <mxGeometry relative="1" width="160" x="-0.2" y="-10" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="400" y="650" as="sourcePoint" />
+            <mxPoint x="560" y="650" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="note1" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFFDE7;strokeColor=#F9A825;size=15;fontSize=11;align=left" value="«单例模式»&#xa;统一管理数据库&#xa;连接和操作" vertex="1">
+          <mxGeometry height="70" width="130" x="400" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="note1_line" edge="1" parent="1" source="dbhelper" style="endArrow=none;dashed=1;html=1;rounded=0;strokeWidth=1;strokeColor=#F9A825;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="note1" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="400" y="700" as="sourcePoint" />
+            <mxPoint x="450" y="650" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="note2" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#FFFDE7;strokeColor=#F9A825;size=15;fontSize=11;align=left" value="主控制器&#xa;协调各模块协同工作" vertex="1">
+          <mxGeometry height="60" width="130" x="80" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="note2_line" edge="1" parent="1" source="csvimporter" style="endArrow=none;dashed=1;html=1;rounded=0;strokeWidth=1;strokeColor=#F9A825;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="note2" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="400" y="700" as="sourcePoint" />
+            <mxPoint x="450" y="650" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="legend_bg" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#BDBDBD;strokeWidth=2" value="" vertex="1">
+          <mxGeometry height="280" width="180" x="1200" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1" value="图例说明" vertex="1">
+          <mxGeometry height="30" width="140" x="1220" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_inherit" edge="1" parent="1" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;strokeWidth=2" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="1220" y="140" as="sourcePoint" />
+            <mxPoint x="1290" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="legend_inherit_text" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11" value="继承关系" vertex="1">
+          <mxGeometry height="20" width="70" x="1300" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_creates" edge="1" parent="1" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;strokeWidth=2;strokeColor=#7B1FA2" value="«creates»">
+          <mxGeometry relative="1" width="160" x="-1" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="1220" y="170" as="sourcePoint" />
+            <mxPoint x="1290" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="legend_creates_text" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11" value="创建关系" vertex="1">
+          <mxGeometry height="20" width="70" x="1300" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_uses" edge="1" parent="1" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;strokeWidth=2;strokeColor=#C62828" value="«uses»">
+          <mxGeometry relative="1" width="160" x="-1" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="1220" y="200" as="sourcePoint" />
+            <mxPoint x="1290" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="legend_uses_text" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11" value="使用关系" vertex="1">
+          <mxGeometry height="20" width="70" x="1300" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_note_text" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1" value="颜色说明：" vertex="1">
+          <mxGeometry height="20" width="140" x="1220" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_ui" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#1976D2;fontSize=10" value="蓝紫色" vertex="1">
+          <mxGeometry height="25" width="60" x="1220" y="255" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_ui_text" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" value="界面层" vertex="1">
+          <mxGeometry height="20" width="80" x="1290" y="257" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_db" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFCDD2;strokeColor=#C62828;fontSize=10" value="红色" vertex="1">
+          <mxGeometry height="25" width="60" x="1220" y="285" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_db_text" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" value="数据层" vertex="1">
+          <mxGeometry height="20" width="80" x="1290" y="287" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_business" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#388E3C;fontSize=10" value="绿/黄色" vertex="1">
+          <mxGeometry height="25" width="60" x="1220" y="315" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_business_text" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" value="业务层" vertex="1">
+          <mxGeometry height="20" width="80" x="1290" y="317" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
